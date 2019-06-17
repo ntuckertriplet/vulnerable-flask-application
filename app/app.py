@@ -1,13 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/<flag>')
-def flag(flag):
-    if flag is 'cdc{url_injection}':
-        return "<h1>%s</h1>" % flag
+@app.route('/flag', methods=['GET', 'POST'])
+def flag():
+    if request.method == 'POST':
+        return 'cdc{good_request}'
     else:
-        return render_template('welcome.html')
+        return 'change your methods'
